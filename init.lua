@@ -18,7 +18,8 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  -- colorscheme = "astrodark",
+  colorscheme = "vscode",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -86,8 +87,8 @@ return {
     if vim.fn.getenv('VIRTUAL_ENV') == vim.NIL then
       local home = vim.fn.getenv('HOME')
       local path= vim.fn.getenv('PATH')
-      vim.fn.setenv('VIRTUAL_ENV', home .. '/.asdf/installs/python/3.8.10')
-      vim.fn.setenv('PATH', home .. '/.asdf/installs/python/3.8.10/bin:' .. path)
+      vim.fn.setenv('VIRTUAL_ENV', home .. '/.asdf/installs/python/3.10.10')
+      vim.fn.setenv('PATH', home .. '/.asdf/installs/python/3.10.10/bin:' .. path)
     end
   end,
 }
