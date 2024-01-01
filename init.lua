@@ -84,11 +84,12 @@ return {
     -- }
     --
     -- force venv
-    if vim.fn.getenv('VIRTUAL_ENV') == vim.NIL then
-      local home = vim.fn.getenv('HOME')
-      local path= vim.fn.getenv('PATH')
-      vim.fn.setenv('VIRTUAL_ENV', home .. '/.asdf/installs/python/3.10.10')
-      vim.fn.setenv('PATH', home .. '/.asdf/installs/python/3.10.10/bin:' .. path)
-    end
+    -- if vim.fn.getenv('VIRTUAL_ENV') == vim.NIL then
+    --   local home = vim.fn.getenv('HOME')
+    --   -- local path= vim.fn.getenv('PATH')
+    --   -- vim.fn.setenv('VIRTUAL_ENV', home .. '/.asdf/installs/python/3.8.10')
+    --   -- vim.fn.setenv('PATH', home .. '/.asdf/installs/python/3.8.10/bin:' .. path)
+    --   vim.g.python3_host_prog = home .. '/.asdf/installs/python/3.8.10/bin/python3'
+    -- end
   end,
 }
