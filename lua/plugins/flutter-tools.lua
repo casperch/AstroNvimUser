@@ -1,5 +1,13 @@
 return {
-  { "akinsho/flutter-tools.nvim", lazy = true }, -- add lsp plugin
+  {
+      'akinsho/flutter-tools.nvim',
+      lazy = false,
+      dependencies = {
+          'nvim-lua/plenary.nvim',
+          'stevearc/dressing.nvim', -- optional for vim.ui.select
+      },
+      config = true,
+  },
   {
     "AstroNvim/astrolsp",
     ---@param opts AstroLSPOpts
