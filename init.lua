@@ -17,3 +17,8 @@ end
 
 require "lazy_setup"
 require "polish"
+require "os"
+
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.asdf/shims/python3"
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
