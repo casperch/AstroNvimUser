@@ -193,11 +193,16 @@ return {
         type = "server",
         port = "${port}",
         executable = {
-          command = "/Users/casperch/.local/share/nvim/mason/bin/codelldb",
+          command = "codelldb",
           args = { "--port", "${port}" },
         },
       }
     end,
+  },
+
+  {
+    'stevearc/overseer.nvim',
+    opts = {},
   },
 
   {
