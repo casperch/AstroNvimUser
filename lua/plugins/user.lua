@@ -187,17 +187,34 @@ return {
   },
 
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    config = function(plugin, opts)
-      require("dap").adapters.codelldb = {
-        type = "server",
-        port = "${port}",
-        executable = {
-          command = "codelldb",
-          args = { "--port", "${port}" },
-        },
-      }
-    end,
+	  "mfussenegger/nvim-dap",
+	  lazy = true,
+	  dependencies = {
+		  "rcarriga/nvim-dap-ui",
+	  },
+	  config = function()
+		  require("dapui").setup()
+
+		  local dap = require("dap")
+		  dap.configurations.c = {
+		    { 
+		      name = "Debug with codelldb",
+		      type = "codelldb",
+		      request = "launch",
+		      program = function()
+		        return vim.fn.input({
+		          prompt = "Path to executable!: ",
+		          default = vim.fn.getcwd() .. "/",
+		          completion = "file",
+		        })
+		      end,
+          breakpointMode= "file",
+		      -- cwd = "${workspaceFolder}",
+          -- expressions = "native",
+		      -- stopOnEntry = false,
+		    },
+		  }
+	  end,
   },
 
   {
