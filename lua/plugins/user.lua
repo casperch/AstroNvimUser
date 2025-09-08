@@ -196,24 +196,58 @@ return {
 		  require("dapui").setup()
 
 		  local dap = require("dap")
+      local project_root = vim.fn.getcwd()
+       
+      -- CMakeLists.txt에서 실행 파일 이름을 찾는 함수
+      local function get_cmake_executable_name()
+        local cmake_file_path = project_root .. "/CMakeLists.txt"
+        local file = io.open(cmake_file_path, "r")
+        if not file then
+          -- CMakeLists.txt가 없으면 폴더 이름으로 대체
+          return vim.fn.fnamemodify(project_root, ':t')
+        end
+
+        local content = file:read("*a")
+        file:close()
+   
+        -- add_executable(NAME ...) 에서 NAME 부분을 찾음
+        local exec_name = string.match(content, "add_executable%s*%(([^%s)]+)")
+        if exec_name then
+          return exec_name
+        end
+
+        -- 못찾으면 project(NAME ...) 에서 NAME 부분을 찾음
+        local proj_name = string.match(content, "project%s*%(([^%s)]+)")
+        if proj_name then
+          return proj_name
+        end
+
+        -- 그래도 못찾으면 폴더 이름으로 대체
+        return vim.fn.fnamemodify(project_root, ':t')
+      end
+
+      local executable_name = get_cmake_executable_name()
+
 		  dap.configurations.c = {
 		    { 
 		      name = "Debug with codelldb",
 		      type = "codelldb",
 		      request = "launch",
-		      program = function()
-		        return vim.fn.input({
-		          prompt = "Path to executable!: ",
-		          default = vim.fn.getcwd() .. "/",
-		          completion = "file",
-		        })
-		      end,
+		      -- program = function()
+		      --   return vim.fn.input({
+		      --     prompt = "Path to executable!: ",
+		      --     default = vim.fn.getcwd() .. "/",
+		      --     completion = "file",
+		      --   })
+		      -- end,
+		      program = project_root .. "/build/" .. executable_name,
           breakpointMode= "file",
 		      -- cwd = "${workspaceFolder}",
           -- expressions = "native",
 		      -- stopOnEntry = false,
 		    },
 		  }
+		  dap.configurations.cpp = dap.configurations.c
 	  end,
   },
 
@@ -265,6 +299,13 @@ return {
   {
     "ggandor/leap.nvim",
     config = function() require("leap").set_default_keymaps()
+    end,
+  },
+
+  {
+    "jonroosevelt/gemini-cli.nvim",
+    config = function()
+      require("gemini").setup()
     end,
   },
 

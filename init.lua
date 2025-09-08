@@ -23,4 +23,4 @@ vim.g.python3_host_prog = os.getenv("HOME") .. "/.pyenv/shims/python3"
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-vim.opt.makeprg = "cmake -B build . && cmake --build build"
+vim.opt.makeprg = "cmake -B build -DCMAKE_BUILD_TYPE=Debug . && cmake --build build"
